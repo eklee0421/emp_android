@@ -1,79 +1,90 @@
 package com.lotte.smart.emp.domain.login
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lotte.smart.emp.R
+import com.lotte.smart.emp.base.*
+import com.lotte.smart.emp.model.LoginModel
+import com.lotte.smart.emp.ui.theme.LightBlu500
+import com.lotte.smart.emp.ui.theme.LightGray100
 
-class LoginView : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            GameLayout()
+@Preview()
+@Composable
+fun LoginView() {
+    val loginModel = remember { mutableStateOf(LoginModel()) }
+    val isAutoChecked = remember { mutableStateOf(false) }
+    Scaffold(backgroundColor = LightGray100,
+        topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
+        content = {
+            Column {
+                LoginTextLayout(title = stringResource(R.string.login_title_id),
+                    placeholder = stringResource(R.string.login_hint_id),
+                    text = loginModel.value.id,
+                    onChange = { loginModel.value.id = it })
+                LoginTextLayout(
+                    title = stringResource(R.string.login_title_pw),
+                    placeholder = stringResource(R.string.login_hint_pw),
+                    text = loginModel.value.password,
+                    onChange = { loginModel.value.password = it },
+                    isPassword = true
+                )
+                BaseCheckBox(
+                    text = stringResource(R.string.login_auto_check),
+                    checked = isAutoChecked.value,
+                    onCheckedChange = { isAutoChecked.value = it })
+
+                Text(text=loginModel.value.id)
+            }
+        },
+        bottomBar = {
+            BaseBottomButton(text = stringResource(R.string.login_title))
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!", modifier = Modifier.padding(10.dp))
+    )
+
 }
 
 
 @Composable
-fun TopScreen() {
-    Row {
-        Greeting(name = "Compose 1")
-        Divider(color = Color.Black)
-        Greeting(name = "Compose 2")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GameLayout(modifier: Modifier = Modifier) {
+fun LoginTextLayout(
+    title: String = "",
+    text: String = "",
+    onChange: (String) -> Unit = {},
+    placeholder: String = "",
+    isPassword: Boolean = false
+) {
+    val inputValue = remember { mutableStateOf(text) }
     Column(
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Text(
-            text = "",
-            fontSize = 45.sp,
-            modifier = modifier.align(Alignment.CenterHorizontally)
+        BaseText(
+            text = title,
+            fontSize = 14.sp,
         )
-        Text(
-            text = "dd",//stringResource(R.string.instructions),
-            fontSize = 17.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        OutlinedTextField(
-            value = "",
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { },
-            label = { Text(
-            "??D"
-            // stringResource(R.string.enter_your_word)
-            ) },
-            isError = false,
+        BaseOutlinedTextField(
+            value = inputValue.value,
+            onValueChange = {
+                inputValue.value = it
+                onChange(it)
+            },
+            placeholder = placeholder,
+            isPassword = isPassword,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
-            keyboardActions = KeyboardActions(
-                onDone = { }
-            ),
+            keyboardActions = KeyboardActions(onDone = { }),
         )
     }
 }

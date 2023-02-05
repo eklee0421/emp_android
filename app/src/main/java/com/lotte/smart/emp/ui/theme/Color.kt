@@ -42,3 +42,10 @@ val DarkRed500 = Color(0xFFFF0019)
 val DarkRed600 = Color(0xFFFF6F74)
 val DarkRed700 = Color(0xFFFFACAD)
 val DarkRed800 = Color(0xFFFFDEDF)
+
+
+val LightGray100 = Color(0xFFF9F9F9)
+val LightGray300 = Color(0xFFE7E7E8)
+val LightGray400 = Color(0xFFCDCECF)
+val LightGray500 = Color(0xFF72787E)
+val LightGray700 = Color(0xFF32383E)
