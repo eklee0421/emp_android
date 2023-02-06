@@ -6,8 +6,13 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,10 +33,13 @@ fun LoginView() {
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
         content = {
             Column {
-                LoginTextLayout(title = stringResource(R.string.login_title_id),
+                LoginTextLayout(
+                    title = stringResource(R.string.login_title_id),
                     placeholder = stringResource(R.string.login_hint_id),
                     text = loginModel.value.id,
-                    onChange = { loginModel.value.id = it })
+                    onChange = { loginModel.value.id = it },
+                    leadingIcon = Icons.Filled.Person
+                )
                 LoginTextLayout(
                     title = stringResource(R.string.login_title_pw),
                     placeholder = stringResource(R.string.login_hint_pw),
@@ -44,7 +52,7 @@ fun LoginView() {
                     checked = isAutoChecked.value,
                     onCheckedChange = { isAutoChecked.value = it })
 
-                Text(text=loginModel.value.id)
+                Text(text = loginModel.value.id)
             }
         },
         bottomBar = {
@@ -62,7 +70,8 @@ fun LoginTextLayout(
     text: String = "",
     onChange: (String) -> Unit = {},
     placeholder: String = "",
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    leadingIcon: ImageVector = Icons.Filled.Info
 ) {
     val inputValue = remember { mutableStateOf(text) }
     Column(
@@ -85,6 +94,7 @@ fun LoginTextLayout(
                 imeAction = ImeAction.Done
             ),
             keyboardActions = KeyboardActions(onDone = { }),
+            leadingIcon = leadingIcon
         )
     }
 }
