@@ -2,9 +2,7 @@ package com.lotte.smart.emp.domain.login
 
 
 import android.graphics.Paint
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -16,6 +14,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +35,8 @@ import com.lotte.smart.emp.ui.theme.Typography
 fun LoginView() {
     val loginModel = remember { mutableStateOf(LoginModel()) }
     val isAutoChecked = remember { mutableStateOf(false) }
-    /*val alpha by infinityTransition.animateFloat(
+    /*val infinityTransition = rememberInfiniteTransition()
+    val alpha by infinityTransition.animateFloat(
         initialValue = 0.0f, targetValue = 1f, animationSpec = infiniteRepeatable(
             animation = keyframes {
                 durationMillis = 1000
@@ -45,6 +45,17 @@ fun LoginView() {
             repeatMode = RepeatMode.Reverse
         )
     )*/
+    val transition = rememberInfiniteTransition()
+
+    val scale by transition.animateFloat(
+        initialValue = 0.9f,
+        targetValue = 1.1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 5000),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
     Scaffold(backgroundColor = LightGray100,
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
         bottomBar = {
@@ -62,7 +73,8 @@ fun LoginView() {
             ) {
                 Image(
                     painter = painterResource(R.drawable.ic_appicon_adaptive_circle),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.scale(scale = scale)
                 )
             }
             LoginTextLayout(
