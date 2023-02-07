@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.lotte.smart.emp.ui.theme.LightGray100
 import com.lotte.smart.emp.ui.theme.LightGray300
 import com.lotte.smart.emp.ui.theme.LightGray700
+import com.lotte.smart.emp.ui.theme.Typography
 
 @Preview()
 @Composable
@@ -54,10 +55,10 @@ fun BaseAppBar(
     TopAppBar(
         title = {
             Box(
-                Modifier.fillMaxSize(),
+                Modifier.fillMaxSize().height(56.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = title,Modifier.padding(17.dp))
+                Text(text = title, color= LightGray700, style = Typography.h2)
             }
         },
         backgroundColor = backgroundColor,

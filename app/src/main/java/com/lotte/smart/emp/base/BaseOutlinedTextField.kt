@@ -24,10 +24,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lotte.smart.emp.ui.theme.LightBlu500
-import com.lotte.smart.emp.ui.theme.LightGray300
-import com.lotte.smart.emp.ui.theme.LightGray400
-import com.lotte.smart.emp.ui.theme.LightGray700
+import com.lotte.smart.emp.ui.theme.*
 
 @Preview()
 @Composable
@@ -63,7 +60,7 @@ fun BaseOutlinedTextField(
         modifier = modifier.height(72.dp).focusRequester(focusRequester),
         enabled = enabled,
         readOnly = readOnly,
-        textStyle = LocalTextStyle.current, //todo
+        textStyle = Typography.body2,
         label = { Text(label) },
         placeholder = { Text(placeholder, color = LightGray400) },
         leadingIcon = {
@@ -112,7 +109,8 @@ fun BaseOutlinedTextField(
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = LightGray300,
             focusedBorderColor = LightBlu500,
-            backgroundColor = Color.White
+            backgroundColor = Color.White,
+            textColor = LightGray700
         ),
         shape = RoundedCornerShape(4.dp)
     )

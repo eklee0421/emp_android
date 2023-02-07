@@ -5,6 +5,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray300
+import com.lotte.smart.emp.ui.theme.Typography
 
 @Preview()
 @Composable
@@ -47,12 +49,11 @@ fun BaseBottomButton(
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = LightBlu500),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().height(48.dp),
         elevation = ButtonDefaults.elevation(0.dp),
-        contentPadding = PaddingValues(17.dp),
         shape = RoundedCornerShape(0.dp)
     ) {
-        Text(text=text, color = Color.White)
+        Text(text=text, color = Color.White, style= Typography.button)
     }
 }
 

@@ -58,7 +58,7 @@ fun BaseCheckBox(
                 uncheckedColor = LightGray300
             )
         )
-        Text(text = text, color = LightGray500)
+        Text(text = text, color = LightGray500, style= Typography.body2)
     }
 
 

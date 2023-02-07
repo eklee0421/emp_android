@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
@@ -23,6 +21,7 @@ import com.lotte.smart.emp.base.*
 import com.lotte.smart.emp.model.LoginModel
 import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray100
+import com.lotte.smart.emp.ui.theme.Typography
 
 @Preview()
 @Composable
@@ -80,7 +79,7 @@ fun LoginTextLayout(
     ) {
         BaseText(
             text = title,
-            fontSize = 14.sp,
+            style = Typography.body1
         )
         BaseOutlinedTextField(
             value = inputValue.value,
