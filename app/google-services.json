@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "929267959522",
+    "firebase_url": "https://empstatusplatform-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "empstatusplatform",
+    "storage_bucket": "empstatusplatform.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929267959522:android:b277da99935aed19a2c0bb",
+        "android_client_info": {
+          "package_name": "com.lotte.smart.emp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929267959522-008drgvhl3f04sb9k3ejtntj6hbagn3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtv_YoXJsqloR_tHS7yIWYmAh2Za_sOBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929267959522-008drgvhl3f04sb9k3ejtntj6hbagn3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929267959522:android:2bef15f71b82e601a2c0bb",
+        "android_client_info": {
+          "package_name": "lotte.ldccRetail.emp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929267959522-008drgvhl3f04sb9k3ejtntj6hbagn3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtv_YoXJsqloR_tHS7yIWYmAh2Za_sOBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929267959522-008drgvhl3f04sb9k3ejtntj6hbagn3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

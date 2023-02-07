@@ -31,7 +31,7 @@ fun LoginView() {
     Scaffold(backgroundColor = LightGray100,
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
         content = {
-            Column {
+            Column(Modifier.padding(horizontal = 16.dp)) {
                 LoginTextLayout(
                     title = stringResource(R.string.login_title_id),
                     placeholder = stringResource(R.string.login_hint_id),
@@ -75,7 +75,7 @@ fun LoginTextLayout(
     val inputValue = remember { mutableStateOf(text) }
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier = Modifier.padding(vertical = 8.dp)
     ) {
         BaseText(
             text = title,
