@@ -57,12 +57,12 @@ fun BaseOutlinedTextField(
             inputValue.value = it
             onValueChange(it)
         },
-        modifier = modifier.height(72.dp).focusRequester(focusRequester),
+        modifier = modifier.height(72.dp).defaultMinSize(minWidth = 1.dp, minHeight = 1.dp).focusRequester(focusRequester),
         enabled = enabled,
         readOnly = readOnly,
         textStyle = Typography.body2,
-        label = { Text(label) },
-        placeholder = { Text(placeholder, color = LightGray400) },
+        label = { Text(label, color = LightGray400, style=Typography.body2) },
+        placeholder = { Text(placeholder, color = LightGray400, style=Typography.body2) },
         leadingIcon = {
             if (isPassword) {
                 Icon(imageVector = if (isPasswordType.value) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,

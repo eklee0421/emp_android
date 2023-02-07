@@ -51,7 +51,7 @@ fun BaseBottomButton(
         colors = ButtonDefaults.buttonColors(backgroundColor = LightBlu500),
         modifier = Modifier.fillMaxWidth().height(48.dp),
         elevation = ButtonDefaults.elevation(0.dp),
-        shape = RoundedCornerShape(0.dp)
+        shape = RoundedCornerShape(8.dp)
     ) {
         Text(text=text, color = Color.White, style= Typography.button)
     }

@@ -47,7 +47,7 @@ fun BaseCheckBox(
     onCheckedChange: ((Boolean) -> Unit) = {},
 ) {
     val checkedState = remember { mutableStateOf(checked) }
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 16.dp)) {
         Checkbox(
             checked = checkedState.value,
             onCheckedChange = {

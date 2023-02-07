@@ -1,6 +1,11 @@
 package com.lotte.smart.emp.domain.login
 
 
+import android.graphics.Paint
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,8 +14,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,47 +26,65 @@ import androidx.compose.ui.unit.sp
 import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.*
 import com.lotte.smart.emp.model.LoginModel
+import com.lotte.smart.emp.ui.theme.DarkBlu500
 import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray100
 import com.lotte.smart.emp.ui.theme.Typography
 
-@Preview()
+@Preview
 @Composable
 fun LoginView() {
     val loginModel = remember { mutableStateOf(LoginModel()) }
     val isAutoChecked = remember { mutableStateOf(false) }
+    /*val alpha by infinityTransition.animateFloat(
+        initialValue = 0.0f, targetValue = 1f, animationSpec = infiniteRepeatable(
+            animation = keyframes {
+                durationMillis = 1000
+                0.7f at 500
+            },
+            repeatMode = RepeatMode.Reverse
+        )
+    )*/
     Scaffold(backgroundColor = LightGray100,
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
-        content = {
-            Column(Modifier.padding(horizontal = 16.dp)) {
-                LoginTextLayout(
-                    title = stringResource(R.string.login_title_id),
-                    placeholder = stringResource(R.string.login_hint_id),
-                    text = loginModel.value.id,
-                    onChange = { loginModel.value.id = it },
-                    leadingIcon = Icons.Filled.Person
-                )
-                LoginTextLayout(
-                    title = stringResource(R.string.login_title_pw),
-                    placeholder = stringResource(R.string.login_hint_pw),
-                    text = loginModel.value.password,
-                    onChange = { loginModel.value.password = it },
-                    isPassword = true
-                )
-                BaseCheckBox(
-                    text = stringResource(R.string.login_auto_check),
-                    checked = isAutoChecked.value,
-                    onCheckedChange = { isAutoChecked.value = it })
-
-                Text(text = loginModel.value.id)
-            }
-        },
         bottomBar = {
-            BaseBottomButton(text = stringResource(R.string.login_title))
+            Box(modifier = Modifier.padding(16.dp)) {
+                BaseBottomButton(text = stringResource(R.string.login_title))
+            }
         }
-
-    )
-
+    ) { innerPadding ->
+        Column(modifier = Modifier.padding(innerPadding)) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.ic_appicon_adaptive_circle),
+                    contentDescription = null
+                )
+            }
+            LoginTextLayout(
+                title = stringResource(R.string.login_title_id),
+                placeholder = stringResource(R.string.login_hint_id),
+                text = loginModel.value.id,
+                onChange = { loginModel.value.id = it },
+                leadingIcon = Icons.Filled.Person
+            )
+            LoginTextLayout(
+                title = stringResource(R.string.login_title_pw),
+                placeholder = stringResource(R.string.login_hint_pw),
+                text = loginModel.value.password,
+                onChange = { loginModel.value.password = it },
+                isPassword = true
+            )
+            BaseCheckBox(
+                text = stringResource(R.string.login_auto_check),
+                checked = isAutoChecked.value,
+                onCheckedChange = { isAutoChecked.value = it })
+        }
+    }
 }
 
 
@@ -75,7 +100,7 @@ fun LoginTextLayout(
     val inputValue = remember { mutableStateOf(text) }
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        modifier = Modifier.padding(vertical = 8.dp)
+        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         BaseText(
             text = title,
