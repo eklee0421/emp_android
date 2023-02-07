@@ -51,11 +51,11 @@ fun BaseAppBar(
     rightIconImage: ImageVector? = null,
     backgroundColor: Color = LightGray100,
 ) {
-    val modifier = Modifier.size(width = 56.dp, height = 56.dp)
+    val modifier = Modifier.size(width = 56.dp, height = 56.dp).padding(0.dp)
     TopAppBar(
         title = {
             Box(
-                Modifier.fillMaxSize().height(56.dp),
+                Modifier.fillMaxWidth().height(56.dp).padding(end=16.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(text = title, color= LightGray700, style = Typography.h2)
