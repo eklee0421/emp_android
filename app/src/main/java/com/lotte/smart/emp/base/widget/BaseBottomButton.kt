@@ -1,7 +1,12 @@
-package com.lotte.smart.emp.base
+package com.lotte.smart.emp.base.widget
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -25,45 +30,30 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray300
 import com.lotte.smart.emp.ui.theme.Typography
 
 @Preview()
 @Composable
-fun showBaseText(){
-    BaseText(text = "test")
+fun showBaseBottomButton() {
+    BaseBottomButton(text = "test")
 }
 
 @Composable
-fun BaseText(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    fontSize: TextUnit = TextUnit.Unspecified,
-    letterSpacing: TextUnit = TextUnit.Unspecified,
-    textDecoration: TextDecoration? = null,
-    textAlign: TextAlign? = null,
-    lineHeight: TextUnit = TextUnit.Unspecified,
-    overflow: TextOverflow = TextOverflow.Clip,
-    softWrap: Boolean = true,
-    maxLines: Int = Int.MAX_VALUE,
-    onTextLayout: (TextLayoutResult) -> Unit = {},
-    style: TextStyle = Typography.body1
+fun BaseBottomButton(
+    onClick: () -> Unit = {},
+    text : String = "",
 ) {
-    Text(
-        text = text,
-        modifier = modifier,
-        color = color,
-        fontSize = fontSize,
-        letterSpacing = letterSpacing,
-        textDecoration = textDecoration,
-        textAlign = textAlign,
-        lineHeight = lineHeight,
-        overflow = overflow,
-        softWrap = softWrap,
-        maxLines=maxLines,
-        onTextLayout = onTextLayout,
-        style = style
-    )
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(backgroundColor = LightBlu500),
+        modifier = Modifier.fillMaxWidth().height(48.dp),
+        elevation = ButtonDefaults.elevation(0.dp),
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Text(text=text, color = Color.White, style= Typography.button)
+    }
 }
 

@@ -1,4 +1,4 @@
-package com.lotte.smart.emp.base
+package com.lotte.smart.emp.base.widget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
@@ -13,11 +13,13 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -43,26 +45,30 @@ fun BaseOutlinedTextField(
     placeholder: String = "",
     isError: Boolean = false,
     isPassword: Boolean = false,
-    leadingIcon : ImageVector = Icons.Filled.Info,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    leadingIcon: ImageVector = Icons.Filled.Info,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     val inputValue = remember { mutableStateOf(value) }
     val isPasswordType = remember { mutableStateOf(isPassword) }
     val focusRequester = FocusRequester()
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         value = inputValue.value,
         onValueChange = {
             inputValue.value = it
             onValueChange(it)
         },
-        modifier = modifier.height(72.dp).defaultMinSize(minWidth = 1.dp, minHeight = 1.dp).focusRequester(focusRequester),
+        modifier = modifier
+            .height(72.dp)
+            .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp)
+            .focusRequester(focusRequester),
         enabled = enabled,
         readOnly = readOnly,
         textStyle = Typography.body2,
-        label = { Text(label, color = LightGray400, style=Typography.body2) },
-        placeholder = { Text(placeholder, color = LightGray400, style=Typography.body2) },
+        label = { Text(label, color = LightGray400, style = Typography.body2) },
+        placeholder = { Text(placeholder, color = LightGray400, style = Typography.body2) },
         leadingIcon = {
             if (isPassword) {
                 Icon(imageVector = if (isPasswordType.value) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
@@ -73,11 +79,14 @@ fun BaseOutlinedTextField(
                         .clickable {
                             isPasswordType.value = !isPasswordType.value
                         })
-            }
-            else{
-                Icon(imageVector = leadingIcon,
+            } else {
+                Icon(
+                    imageVector = leadingIcon,
                     contentDescription = null,
-                    modifier = Modifier.width(20.dp).height(20.dp))
+                    modifier = Modifier
+                        .width(20.dp)
+                        .height(20.dp)
+                )
             }
         },
         trailingIcon = {
@@ -100,12 +109,10 @@ fun BaseOutlinedTextField(
         isError = isError,
         visualTransformation = if (isPasswordType.value) PasswordVisualTransformation() else VisualTransformation.None,
         singleLine = true,
-        /*keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done
-        ),
+        keyboardOptions = keyboardOptions,
         keyboardActions = KeyboardActions(
-            onDone = { }
-        ),*/
+            onNext = { focusManager.moveFocus(FocusDirection.Down) },
+            onDone = { focusManager.clearFocus() }),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = LightGray300,
             focusedBorderColor = LightBlu500,

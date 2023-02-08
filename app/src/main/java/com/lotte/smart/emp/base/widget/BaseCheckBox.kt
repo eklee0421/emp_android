@@ -1,4 +1,4 @@
-package com.lotte.smart.emp.base
+package com.lotte.smart.emp.base.widget
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*

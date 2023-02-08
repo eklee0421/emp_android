@@ -4,6 +4,7 @@ package com.lotte.smart.emp.domain.login
 import android.graphics.Paint
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,7 +16,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -24,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.*
+import com.lotte.smart.emp.base.widget.*
 import com.lotte.smart.emp.model.LoginModel
 import com.lotte.smart.emp.ui.theme.DarkBlu500
 import com.lotte.smart.emp.ui.theme.LightBlu500
@@ -35,28 +40,21 @@ import com.lotte.smart.emp.ui.theme.Typography
 fun LoginView() {
     val loginModel = remember { mutableStateOf(LoginModel()) }
     val isAutoChecked = remember { mutableStateOf(false) }
-    /*val infinityTransition = rememberInfiniteTransition()
-    val alpha by infinityTransition.animateFloat(
-        initialValue = 0.0f, targetValue = 1f, animationSpec = infiniteRepeatable(
-            animation = keyframes {
-                durationMillis = 1000
-                0.7f at 500
-            },
-            repeatMode = RepeatMode.Reverse
-        )
-    )*/
+    val focusManager = LocalFocusManager.current
+
     val transition = rememberInfiniteTransition()
 
     val scale by transition.animateFloat(
         initialValue = 0.9f,
-        targetValue = 1.1f,
+        targetValue = 1.0f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 5000),
+            animation = tween(durationMillis = 3500),
             repeatMode = RepeatMode.Reverse
         )
     )
 
     Scaffold(backgroundColor = LightGray100,
+        modifier = Modifier.addFocusCleaner(focusManager),
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
         bottomBar = {
             Box(modifier = Modifier.padding(16.dp)) {
@@ -89,7 +87,8 @@ fun LoginView() {
                 placeholder = stringResource(R.string.login_hint_pw),
                 text = loginModel.value.password,
                 onChange = { loginModel.value.password = it },
-                isPassword = true
+                isPassword = true,
+                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
             )
             BaseCheckBox(
                 text = stringResource(R.string.login_auto_check),
@@ -107,7 +106,8 @@ fun LoginTextLayout(
     onChange: (String) -> Unit = {},
     placeholder: String = "",
     isPassword: Boolean = false,
-    leadingIcon: ImageVector = Icons.Filled.Info
+    leadingIcon: ImageVector = Icons.Filled.Info,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
 ) {
     val inputValue = remember { mutableStateOf(text) }
     Column(
@@ -126,11 +126,17 @@ fun LoginTextLayout(
             },
             placeholder = placeholder,
             isPassword = isPassword,
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(onDone = { }),
-            leadingIcon = leadingIcon
+            leadingIcon = leadingIcon,
+            keyboardOptions = keyboardOptions
         )
+    }
+}
+
+fun Modifier.addFocusCleaner(focusManager: FocusManager, doOnClear: () -> Unit = {}): Modifier {
+    return this.pointerInput(Unit) {
+        detectTapGestures(onTap = {
+            doOnClear()
+            focusManager.clearFocus()
+        })
     }
 }
