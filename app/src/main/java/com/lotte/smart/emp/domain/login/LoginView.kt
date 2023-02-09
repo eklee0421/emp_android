@@ -40,10 +40,8 @@ import com.lotte.smart.emp.ui.theme.Typography
 fun LoginView() {
     val loginModel = remember { mutableStateOf(LoginModel()) }
     val isAutoChecked = remember { mutableStateOf(false) }
-    val focusManager = LocalFocusManager.current
 
     val transition = rememberInfiniteTransition()
-
     val scale by transition.animateFloat(
         initialValue = 0.9f,
         targetValue = 1.0f,
@@ -53,8 +51,7 @@ fun LoginView() {
         )
     )
 
-    Scaffold(backgroundColor = LightGray100,
-        modifier = Modifier.addFocusCleaner(focusManager),
+    BaseScaffold(
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
         bottomBar = {
             Box(modifier = Modifier.padding(16.dp)) {

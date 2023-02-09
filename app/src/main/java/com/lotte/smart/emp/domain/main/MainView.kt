@@ -6,22 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.lotte.smart.emp.R
-import com.lotte.smart.emp.base.BaseAppBar
-import com.lotte.smart.emp.base.BaseBottomButton
-import com.lotte.smart.emp.base.BaseText
+import com.lotte.smart.emp.base.widget.BaseAppBar
+import com.lotte.smart.emp.base.widget.BaseBottomButton
+import com.lotte.smart.emp.base.widget.BaseScaffold
+import com.lotte.smart.emp.base.widget.BaseText
 import com.lotte.smart.emp.ui.theme.LightGray100
 
 @Preview
 @Composable
 fun MainView(){
-    Scaffold(backgroundColor = LightGray100,
+    BaseScaffold(
     topBar = {
         BaseAppBar(title = stringResource(R.string.login_title))
     },
-        content = {
-            Column() {
-                BaseText(text = "임시텍스트")
-            }
-        }
-        )
+
+        ){}
 }
