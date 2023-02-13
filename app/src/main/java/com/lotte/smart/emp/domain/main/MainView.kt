@@ -2,6 +2,9 @@ package com.lotte.smart.emp.domain.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,7 +20,7 @@ import com.lotte.smart.emp.ui.theme.LightGray100
 fun MainView(){
     BaseScaffold(
     topBar = {
-        BaseAppBar(title = stringResource(R.string.login_title))
+        BaseAppBar(rightIconImage = Icons.Filled.MoreHoriz)
     },
 
         ){}
