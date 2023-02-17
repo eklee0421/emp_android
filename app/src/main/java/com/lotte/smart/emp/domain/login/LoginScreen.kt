@@ -26,8 +26,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.*
+import com.lotte.smart.emp.base.navigation.Screens
 import com.lotte.smart.emp.base.widget.*
 import com.lotte.smart.emp.model.LoginModel
 import com.lotte.smart.emp.ui.theme.DarkBlu500
@@ -35,9 +37,8 @@ import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray100
 import com.lotte.smart.emp.ui.theme.Typography
 
-@Preview
 @Composable
-fun LoginView() {
+fun LoginScreen(navController: NavController) {
     val loginModel = remember { mutableStateOf(LoginModel()) }
     val isAutoChecked = remember { mutableStateOf(false) }
 
@@ -55,7 +56,8 @@ fun LoginView() {
         topBar = { BaseAppBar(title = stringResource(R.string.login_title)) },
         bottomBar = {
             Box(modifier = Modifier.padding(16.dp)) {
-                BaseBottomButton(text = stringResource(R.string.login_title))
+                BaseBottomButton(text = stringResource(R.string.login_title),
+                    onClick = { navController.navigate(Screens.Home.route)})
             }
         }
     ) { innerPadding ->
@@ -126,14 +128,5 @@ fun LoginTextLayout(
             leadingIcon = leadingIcon,
             keyboardOptions = keyboardOptions
         )
-    }
-}
-
-fun Modifier.addFocusCleaner(focusManager: FocusManager, doOnClear: () -> Unit = {}): Modifier {
-    return this.pointerInput(Unit) {
-        detectTapGestures(onTap = {
-            doOnClear()
-            focusManager.clearFocus()
-        })
     }
 }
