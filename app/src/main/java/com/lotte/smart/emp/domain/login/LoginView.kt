@@ -76,14 +76,14 @@ fun LoginView() {
                 title = stringResource(R.string.login_title_id),
                 placeholder = stringResource(R.string.login_hint_id),
                 text = loginModel.value.id,
-                onChange = { loginModel.value.id = it },
+                onChange = { loginModel.value = LoginModel(id = it, password = loginModel.value.password) },
                 leadingIcon = Icons.Filled.Person
             )
             LoginTextLayout(
                 title = stringResource(R.string.login_title_pw),
                 placeholder = stringResource(R.string.login_hint_pw),
                 text = loginModel.value.password,
-                onChange = { loginModel.value.password = it },
+                onChange = { loginModel.value = LoginModel(id = loginModel.value.id, password = it) },
                 isPassword = true,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
             )
