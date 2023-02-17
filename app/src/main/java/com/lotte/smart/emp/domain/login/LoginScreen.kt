@@ -35,10 +35,11 @@ import com.lotte.smart.emp.model.LoginModel
 import com.lotte.smart.emp.ui.theme.DarkBlu500
 import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray100
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lotte.smart.emp.ui.theme.Typography
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
     val loginModel = remember { mutableStateOf(LoginModel()) }
     val isAutoChecked = remember { mutableStateOf(false) }
 
@@ -57,7 +58,7 @@ fun LoginScreen(navController: NavController) {
         bottomBar = {
             Box(modifier = Modifier.padding(16.dp)) {
                 BaseBottomButton(text = stringResource(R.string.login_title),
-                    onClick = { navController.navigate(Screens.Home.route)})
+                    onClick = {viewModel.procLogin(navController, loginModel.value)})
             }
         }
     ) { innerPadding ->
