@@ -9,21 +9,20 @@ import com.lotte.smart.emp.model.LoginModel
 
 class LoginViewModel() : BaseViewModel() {
     var loginModel = mutableStateOf(LoginModel())
+    var isAutoChecked = mutableStateOf(false)
 
-    fun procLogin(navController: NavController, loginModel: LoginModel){
+    fun procLogin(navController: NavController){
 
         //input 체크
-        if(loginModel.id.isBlank()){
+        if(loginModel.value.id.isBlank()){
             return
         }
-        else if(loginModel.password.isBlank()){
+        else if(loginModel.value.password.isBlank()){
             return
         }
 
         navController.navigate(Screens.Home.route)
 
     }
-    /*fun onChange(newNum: Int) {
-        sampleData = sampleData.copy(num1 = newNum)
-    }*/
+
 }
