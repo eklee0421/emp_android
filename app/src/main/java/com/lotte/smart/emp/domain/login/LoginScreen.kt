@@ -1,41 +1,30 @@
 package com.lotte.smart.emp.domain.login
 
 
-import android.graphics.Paint
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.lotte.smart.emp.R
-import com.lotte.smart.emp.base.*
-import com.lotte.smart.emp.base.navigation.Screens
 import com.lotte.smart.emp.base.widget.*
 import com.lotte.smart.emp.model.LoginModel
-import com.lotte.smart.emp.ui.theme.DarkBlu500
-import com.lotte.smart.emp.ui.theme.LightBlu500
-import com.lotte.smart.emp.ui.theme.LightGray100
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lotte.smart.emp.ui.theme.Typography
 
 @Composable
@@ -56,7 +45,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
         bottomBar = {
             Box(modifier = Modifier.padding(16.dp)) {
                 BaseBottomButton(text = stringResource(R.string.login_title),
-                    onClick = {viewModel.procLogin(navController)})
+                    onClick = { viewModel.procLogin(navController) })
             }
         }
     ) { innerPadding ->
@@ -77,14 +66,20 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                 title = stringResource(R.string.login_title_id),
                 placeholder = stringResource(R.string.login_hint_id),
                 text = viewModel.loginModel.value.id,
-                onChange = { viewModel.loginModel.value = LoginModel(id = it, password = viewModel.loginModel.value.password) },
+                onChange = {
+                    viewModel.loginModel.value =
+                        LoginModel(id = it, password = viewModel.loginModel.value.password)
+                },
                 leadingIcon = Icons.Filled.Person
             )
             LoginTextLayout(
                 title = stringResource(R.string.login_title_pw),
                 placeholder = stringResource(R.string.login_hint_pw),
                 text = viewModel.loginModel.value.password,
-                onChange = { viewModel.loginModel.value = LoginModel(id = viewModel.loginModel.value.id, password = it) },
+                onChange = {
+                    viewModel.loginModel.value =
+                        LoginModel(id = viewModel.loginModel.value.id, password = it)
+                },
                 isPassword = true,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
             )
@@ -92,7 +87,6 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                 text = stringResource(R.string.login_auto_check),
                 checked = viewModel.isAutoChecked.value,
                 onCheckedChange = { viewModel.isAutoChecked.value = it })
-            BaseText(text = viewModel.isAutoChecked.value.toString())
         }
     }
 }
