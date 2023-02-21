@@ -92,7 +92,6 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
                 text = stringResource(R.string.login_auto_check),
                 checked = viewModel.isAutoChecked.value,
                 onCheckedChange = { viewModel.isAutoChecked.value = it })
-            BaseText(text = viewModel.isAutoChecked.value.toString())
         }
     }
 }
