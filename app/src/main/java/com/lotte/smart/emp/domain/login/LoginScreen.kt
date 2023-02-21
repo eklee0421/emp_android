@@ -30,6 +30,11 @@ import com.lotte.smart.emp.ui.theme.Typography
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewModel()) {
 
+    LoginView(navController)
+}
+
+@Composable
+fun LoginView(navController: NavController, viewModel: LoginViewModel = viewModel()) {
     val transition = rememberInfiniteTransition()
     val scale by transition.animateFloat(
         initialValue = 0.9f,
@@ -90,7 +95,6 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = viewMo
         }
     }
 }
-
 
 @Composable
 fun LoginTextLayout(

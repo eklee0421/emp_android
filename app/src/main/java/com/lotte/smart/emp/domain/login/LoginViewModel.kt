@@ -1,6 +1,5 @@
 package com.lotte.smart.emp.domain.login
 
-import android.app.Application
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -14,11 +13,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository,
-    application: Application
-) : BaseViewModel(application) {
+    private val loginRepository: LoginRepository
+) : BaseViewModel() {
     var loginModel = mutableStateOf(LoginModel())
     var isAutoChecked = mutableStateOf(false)
+    
 
     fun procLogin(navController: NavController) {
 
@@ -30,7 +29,7 @@ class LoginViewModel @Inject constructor(
                 return@launch
             }
 
-            loginRepository.login(loginModel.value.id, loginModel.value.password)
+            //loginRepository.login(loginModel.value.id, loginModel.value.password)
 
             navController.navigate(Screens.Home.route)
         }
