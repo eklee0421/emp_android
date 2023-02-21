@@ -30,11 +30,11 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             //input 체크
-            if (loginModel.value.id.isBlank()) {
+            /*if (loginModel.value.id.isBlank()) {
                 return@launch
             } else if (loginModel.value.password.isBlank()) {
                 return@launch
-            }
+            }*/
 
             //loginRepository.login(loginModel.value.id, loginModel.value.password)
 
