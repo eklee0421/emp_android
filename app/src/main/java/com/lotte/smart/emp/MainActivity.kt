@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
 import com.lotte.smart.emp.base.navigation.NavGraph
 import com.lotte.smart.emp.ui.theme.EmpTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val navController = rememberNavController()
-                    NavGraph(navController = navController)
+                    NavGraph()
                 }
             }
         }

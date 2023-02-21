@@ -1,10 +1,10 @@
 package com.lotte.smart.emp.domain.login
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
 import com.lotte.smart.emp.base.BaseViewModel
-import com.lotte.smart.emp.base.navigation.Screens
 import com.lotte.smart.emp.model.LoginModel
 import com.lotte.smart.emp.repository.login.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,9 +17,16 @@ class LoginViewModel @Inject constructor(
 ) : BaseViewModel() {
     var loginModel = mutableStateOf(LoginModel())
     var isAutoChecked = mutableStateOf(false)
-    
 
-    fun procLogin(navController: NavController) {
+    val _state = MutableLiveData<LoginState>()
+    val state: LiveData<LoginState>
+        get() = _state
+
+    fun setState(state: LoginState) {
+        _state.value = state
+    }
+
+    fun procLogin() {
 
         viewModelScope.launch {
             //input 체크
@@ -31,7 +38,7 @@ class LoginViewModel @Inject constructor(
 
             //loginRepository.login(loginModel.value.id, loginModel.value.password)
 
-            navController.navigate(Screens.Home.route)
+            setState(LoginState.OnChangeHome)
         }
 
     }

@@ -1,4 +1,5 @@
 package com.lotte.smart.emp.domain.login
 
-class LoginState {
+sealed class LoginState {
+    object OnChangeHome : LoginState()
 }
