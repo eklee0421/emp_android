@@ -64,7 +64,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-    
+
     //icon
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
@@ -98,4 +98,10 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
     kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2"
+
+    //pager
+    def accompanist_version = "0.28.0"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version" // Pager
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
+    // Pager Indicators
 }

@@ -11,8 +11,7 @@ import com.lotte.smart.emp.base.widget.BaseText
 @Composable
 fun CalendarScreen() {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
             .background(MaterialTheme.colors.secondaryVariant)
     ) {
         BaseText(text = "캘린더")

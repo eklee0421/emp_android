@@ -11,8 +11,7 @@ import com.lotte.smart.emp.base.widget.BaseText
 @Composable
 fun AnalysisScreen() {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
             .background(Color.LightGray)
     ) {
         BaseText(text = "전체")
