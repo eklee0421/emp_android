@@ -2,6 +2,7 @@ package com.lotte.smart.emp.domain.login
 
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -17,7 +18,10 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
     state.value?.let {
         when (it) {
             is LoginState.OnChangeHome -> {
-                navController.navigate(Screens.Home.route)
+                viewModel.log()
+                navController.navigate(Screens.Home.route) {
+                        launchSingleTop = true
+                }
             }
         }
     }

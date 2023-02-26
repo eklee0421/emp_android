@@ -1,5 +1,6 @@
 package com.lotte.smart.emp.domain.login
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +24,11 @@ class LoginViewModel @Inject constructor(
         get() = _state
 
     fun setState(state: LoginState) {
-        _state.value = state
+        _state.postValue(state)
+    }
+
+    fun log(){
+        Log.e("??","hg==============")
     }
 
     fun procLogin() {
