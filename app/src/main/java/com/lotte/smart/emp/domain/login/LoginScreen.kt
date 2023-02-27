@@ -15,16 +15,17 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel = hiltVi
     LoginView()
 
     val state = viewModel.state.observeAsState()
-    state.value?.let {
-        when (it) {
-            is LoginState.OnChangeHome -> {
-                viewModel.log()
-                navController.navigate(Screens.Home.route) {
+
+    LaunchedEffect(state.value) {
+        state.value?.let {
+            when (it) {
+                is LoginState.OnChangeHome -> {
+                    navController.navigate(Screens.Home.route) {
                         launchSingleTop = true
+                    }
                 }
             }
         }
     }
 
-    
 }
