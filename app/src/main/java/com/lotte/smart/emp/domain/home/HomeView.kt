@@ -1,23 +1,27 @@
 package com.lotte.smart.emp.domain.home
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.widget.BaseAppBar
 import com.lotte.smart.emp.base.widget.BaseScaffold
 import com.lotte.smart.emp.domain.analysis.AnalysisScreen
@@ -41,8 +45,8 @@ fun HomeView() {
     val items = listOf(
         TabRowItem.Analysis,
         TabRowItem.Calendar,
-        /*TabRowItem.Reorder,
-        TabRowItem.Settings*/
+        TabRowItem.Reorder,
+        TabRowItem.Settings
     )
 
     BaseScaffold(
@@ -52,23 +56,41 @@ fun HomeView() {
         bottomBar = {
             BoxWithConstraints(
                 modifier = Modifier
-                    .height(56.dp)
-                    .fillMaxWidth(),
+                    .height(78.dp)
+                    .fillMaxWidth()
+                    .paint(
+                        painter = painterResource(id = R.drawable.bg_home_tab),
+                        contentScale = ContentScale.FillWidth
+                    ),
             ) {
-                /*Image(
-                    modifier = Modifier.fillMaxSize(),
-                    painter = painterResource(id = R.drawable.bg_home_tab),
-                    contentDescription = ""
-                )*/
+                //FAB custom color
+                FloatingActionButton(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .align(Alignment.TopCenter),
+                    onClick = { },
+                    backgroundColor = LightBlu500,
+                    contentColor = Color.White
+                ) {
+                    Icon(Icons.Filled.Add, "")
+                }
+
                 TabRow(
+                    modifier = Modifier
+                        .height(56.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter),
                     divider = {},
                     backgroundColor = Color.Transparent,
                     selectedTabIndex = pagerState.currentPage,
                     indicator = { }) {
                     items.forEachIndexed { index, item ->
-                        /*if (index == items.count() / 2) {
-                        Spacer(Modifier.weight(1f))
-                    }*/
+                        if (index == items.count() / 2) {
+                            Column {
+                                Spacer(Modifier.weight(1f))
+                            }
+                        }
+
                         Tab(
                             modifier = Modifier.height(56.dp),
                             selected = pagerState.currentPage == index,
@@ -91,7 +113,7 @@ fun HomeView() {
             }
         }
     ) {
-        Box(Modifier.padding(it)) {
+        Box() {
             HorizontalPager(
                 count = items.size,
                 state = pagerState,
@@ -109,6 +131,6 @@ sealed class TabRowItem(
 ) {
     object Analysis : TabRowItem("홈", Icons.Filled.Home, { AnalysisScreen() })
     object Calendar : TabRowItem("달력", Icons.Filled.CalendarToday, { CalendarScreen() })
-    /*object Reorder : TabRowItem("목록", Icons.Filled.Reorder, { CalendarScreen() })
-    object Settings : TabRowItem("설정", Icons.Filled.Settings, { AnalysisScreen() })*/
+    object Reorder : TabRowItem("목록", Icons.Filled.Reorder, { AnalysisScreen() })
+    object Settings : TabRowItem("설정", Icons.Filled.Settings, { CalendarScreen() })
 }
