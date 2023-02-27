@@ -1,10 +1,7 @@
 package com.lotte.smart.emp.domain.home
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
@@ -26,6 +23,7 @@ import com.lotte.smart.emp.base.widget.BaseAppBar
 import com.lotte.smart.emp.base.widget.BaseScaffold
 import com.lotte.smart.emp.domain.analysis.AnalysisScreen
 import com.lotte.smart.emp.domain.calendar.CalendarScreen
+import com.lotte.smart.emp.domain.register.RegisterScreen
 import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray400
 import kotlinx.coroutines.launch
@@ -36,11 +34,12 @@ fun ShowHomeView() {
     HomeView()
 }
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun HomeView() {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
+    val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
     val items = listOf(
         TabRowItem.Analysis,
@@ -48,77 +47,84 @@ fun HomeView() {
         TabRowItem.Reorder,
         TabRowItem.Settings
     )
-
-    BaseScaffold(
-        topBar = {
-            BaseAppBar(rightIconImage = Icons.Filled.MoreHoriz)
-        },
-        bottomBar = {
-            BoxWithConstraints(
-                modifier = Modifier
-                    .height(78.dp)
-                    .fillMaxWidth()
-                    .paint(
-                        painter = painterResource(id = R.drawable.bg_home_tab),
-                        contentScale = ContentScale.FillWidth
-                    ),
-            ) {
-                //FAB custom color
-                FloatingActionButton(
+    RegisterScreen(modalSheetState = modalBottomSheetState) {
+        BaseScaffold(
+            topBar = {
+                BaseAppBar(rightIconImage = Icons.Filled.MoreHoriz)
+            },
+            bottomBar = {
+                BoxWithConstraints(
                     modifier = Modifier
-                        .size(48.dp)
-                        .align(Alignment.TopCenter),
-                    onClick = { },
-                    backgroundColor = LightBlu500,
-                    contentColor = Color.White
-                ) {
-                    Icon(Icons.Filled.Add, "")
-                }
-
-                TabRow(
-                    modifier = Modifier
-                        .height(56.dp)
+                        .height(78.dp)
                         .fillMaxWidth()
-                        .align(Alignment.BottomCenter),
-                    divider = {},
-                    backgroundColor = Color.Transparent,
-                    selectedTabIndex = pagerState.currentPage,
-                    indicator = { }) {
-                    items.forEachIndexed { index, item ->
-                        if (index == items.count() / 2) {
-                            Column {
-                                Spacer(Modifier.weight(1f))
-                            }
-                        }
-
-                        Tab(
-                            modifier = Modifier.height(56.dp),
-                            selected = pagerState.currentPage == index,
-                            onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } },
-                            icon = {
-                                Icon(
-                                    imageVector = item.icon,
-                                    contentDescription = "",
-                                    modifier = Modifier.size(26.dp)
+                        .paint(
+                            painter = painterResource(id = R.drawable.bg_home_tab),
+                            contentScale = ContentScale.FillWidth
+                        ),
+                ) {
+                    //FAB custom color
+                    FloatingActionButton(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .align(Alignment.TopCenter),
+                        onClick = {
+                            coroutineScope.launch {
+                                modalBottomSheetState.animateTo(
+                                    ModalBottomSheetValue.Expanded
                                 )
-                            },
-                            /*text = {
+                            }
+                        },
+                        backgroundColor = LightBlu500,
+                        contentColor = Color.White
+                    ) {
+                        Icon(Icons.Filled.Add, "")
+                    }
+
+                    TabRow(
+                        modifier = Modifier
+                            .height(56.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.BottomCenter),
+                        divider = {},
+                        backgroundColor = Color.Transparent,
+                        selectedTabIndex = pagerState.currentPage,
+                        indicator = { }) {
+                        items.forEachIndexed { index, item ->
+                            if (index == items.count() / 2) {
+                                Column {
+                                    Spacer(Modifier.weight(1f))
+                                }
+                            }
+
+                            Tab(
+                                modifier = Modifier.height(56.dp),
+                                selected = pagerState.currentPage == index,
+                                onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } },
+                                icon = {
+                                    Icon(
+                                        imageVector = item.icon,
+                                        contentDescription = "",
+                                        modifier = Modifier.size(26.dp)
+                                    )
+                                },
+                                /*text = {
                                 BaseText(text = item.title)
                             },*/
-                            selectedContentColor = LightBlu500,
-                            unselectedContentColor = LightGray400
-                        )
+                                selectedContentColor = LightBlu500,
+                                unselectedContentColor = LightGray400
+                            )
+                        }
                     }
                 }
             }
-        }
-    ) {
-        Box() {
-            HorizontalPager(
-                count = items.size,
-                state = pagerState,
-            ) {
-                items[pagerState.currentPage].screen()
+        ) {
+            Box() {
+                HorizontalPager(
+                    count = items.size,
+                    state = pagerState,
+                ) {
+                    items[pagerState.currentPage].screen()
+                }
             }
         }
     }
