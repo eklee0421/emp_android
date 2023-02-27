@@ -7,4 +7,6 @@
     <string name="login_title_pw">비밀번호</string>
     <string name="login_hint_pw">MOIN 비밀번호</string>
     <string name="login_auto_check">자동로그인</string>
+
+    <string name="register_title">등록</string>
 </resources>

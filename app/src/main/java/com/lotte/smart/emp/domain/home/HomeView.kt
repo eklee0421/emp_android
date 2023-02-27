@@ -62,7 +62,6 @@ fun HomeView() {
                             contentScale = ContentScale.FillWidth
                         ),
                 ) {
-                    //FAB custom color
                     FloatingActionButton(
                         modifier = Modifier
                             .size(48.dp)
