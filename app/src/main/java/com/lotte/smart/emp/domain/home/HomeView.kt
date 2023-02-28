@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -22,7 +21,6 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.theme.ClearRippleTheme
-import com.lotte.smart.emp.base.widget.BaseAppBar
 import com.lotte.smart.emp.base.widget.BaseScaffold
 import com.lotte.smart.emp.domain.register.RegisterScreen
 import com.lotte.smart.emp.ui.theme.LightBlu500
@@ -46,9 +44,6 @@ fun HomeView(items: List<TabRowItem> = emptyList()) {
 
     RegisterScreen(modalSheetState = modalBottomSheetState) {
         BaseScaffold(
-            topBar = {
-                BaseAppBar(rightIconImage = Icons.Outlined.Notifications)
-            },
             bottomBar = {
                 BoxWithConstraints(
                     modifier = Modifier

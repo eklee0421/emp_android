@@ -9,4 +9,6 @@
     <string name="login_auto_check">자동로그인</string>
 
     <string name="register_title">등록</string>
+
+    <string name="setting_title">설정</string>
 </resources>

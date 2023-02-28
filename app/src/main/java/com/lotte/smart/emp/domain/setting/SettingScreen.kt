@@ -1,4 +1,4 @@
-package com.lotte.smart.emp.domain.personal
+package com.lotte.smart.emp.domain.setting
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,16 +8,16 @@ import androidx.navigation.NavController
 import com.lotte.smart.emp.base.navigation.Screens
 
 @Composable
-fun PersonalScreen(navController: NavController, viewModel: PersonalViewModel = hiltViewModel()) {
-    PersonalView()
+fun SettingScreen(navController: NavController, viewModel: SettingViewModel = hiltViewModel()) {
+    SettingView()
 
     val state = viewModel.state.observeAsState()
 
     LaunchedEffect(state.value) {
         state.value?.let {
             when (it) {
-                is PersonalState.OnChangeSetting -> {
-                    navController.navigate(Screens.Setting.route) {
+                is SettingState.OnChangeHome -> {
+                    navController.navigate(Screens.Home.route) {
                         launchSingleTop = true
                     }
                 }
