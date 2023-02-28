@@ -87,10 +87,12 @@ fun LoginView(viewModel: LoginViewModel = hiltViewModel()) {
                 isPassword = true,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
             )
-            BaseCheckBox(
+            /*BaseCheckBox(
                 text = stringResource(R.string.login_auto_check),
                 checked = viewModel.isAutoChecked.value,
-                onCheckedChange = { viewModel.isAutoChecked.value = it })
+                onCheckedChange = { viewModel.isAutoChecked.value = it })*/
+            
+
         }
     }
 }

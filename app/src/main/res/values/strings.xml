@@ -11,4 +11,9 @@
     <string name="register_title">등록</string>
 
     <string name="setting_title">설정</string>
+    <string name="setting_alarm_title">알림</string>
+    <string name="setting_alarm_set">알림을 수신합니다</string>
+    <string name="setting_secure_title">계정/보안</string>
+    <string name="setting_secure_logout">로그아웃</string>
+    <string name="setting_secure_remove_person">계정삭제</string>
 </resources>

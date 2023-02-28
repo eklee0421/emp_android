@@ -41,7 +41,6 @@ fun HomeView(items: List<TabRowItem> = emptyList()) {
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
-
     RegisterScreen(modalSheetState = modalBottomSheetState) {
         BaseScaffold(
             bottomBar = {

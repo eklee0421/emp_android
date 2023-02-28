@@ -28,4 +28,6 @@ fun LauncherScreen(navController: NavController, viewModel: LauncherViewModel = 
             }
         }
     }
+
+    LauncherView()
 }

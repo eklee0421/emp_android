@@ -23,4 +23,5 @@ class PersonalViewModel @Inject constructor(
         setState(PersonalState.OnChangeSetting)
     }
 
+    
 }
