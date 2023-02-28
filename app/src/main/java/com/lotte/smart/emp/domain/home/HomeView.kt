@@ -3,14 +3,16 @@ package com.lotte.smart.emp.domain.home
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,13 +21,13 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.lotte.smart.emp.R
+import com.lotte.smart.emp.base.theme.ClearRippleTheme
 import com.lotte.smart.emp.base.widget.BaseAppBar
 import com.lotte.smart.emp.base.widget.BaseScaffold
-import com.lotte.smart.emp.domain.analysis.AnalysisScreen
-import com.lotte.smart.emp.domain.calendar.CalendarScreen
 import com.lotte.smart.emp.domain.register.RegisterScreen
 import com.lotte.smart.emp.ui.theme.LightBlu500
 import com.lotte.smart.emp.ui.theme.LightGray400
+import com.lotte.smart.emp.ui.theme.LightGray700
 import kotlinx.coroutines.launch
 
 @Preview(group = "Test")
@@ -36,21 +38,16 @@ fun ShowHomeView() {
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun HomeView() {
+fun HomeView(items: List<TabRowItem> = emptyList()) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
-    val items = listOf(
-        TabRowItem.Analysis,
-        TabRowItem.Calendar,
-        TabRowItem.Reorder,
-        TabRowItem.Settings
-    )
+
     RegisterScreen(modalSheetState = modalBottomSheetState) {
         BaseScaffold(
             topBar = {
-                BaseAppBar(rightIconImage = Icons.Filled.MoreHoriz)
+                BaseAppBar(rightIconImage = Icons.Outlined.Notifications)
             },
             bottomBar = {
                 BoxWithConstraints(
@@ -79,39 +76,50 @@ fun HomeView() {
                         Icon(Icons.Filled.Add, "")
                     }
 
-                    TabRow(
-                        modifier = Modifier
-                            .height(56.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.BottomCenter),
-                        divider = {},
-                        backgroundColor = Color.Transparent,
-                        selectedTabIndex = pagerState.currentPage,
-                        indicator = { }) {
-                        items.forEachIndexed { index, item ->
-                            if (index == items.count() / 2) {
-                                Column {
-                                    Spacer(Modifier.weight(1f))
+                    CompositionLocalProvider(
+                        LocalRippleTheme provides ClearRippleTheme
+                    ) {
+                        TabRow(
+                            modifier = Modifier
+                                .height(56.dp)
+                                .fillMaxWidth()
+                                .align(Alignment.BottomCenter),
+                            divider = {},
+                            backgroundColor = Color.Transparent,
+                            selectedTabIndex = pagerState.currentPage,
+                            indicator = { }) {
+                            items.forEachIndexed { index, item ->
+                                if (index == items.count() / 2) {
+                                    Column {
+                                        Spacer(Modifier.weight(1f))
+                                    }
                                 }
-                            }
 
-                            Tab(
-                                modifier = Modifier.height(56.dp),
-                                selected = pagerState.currentPage == index,
-                                onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } },
-                                icon = {
-                                    Icon(
-                                        imageVector = item.icon,
-                                        contentDescription = "",
-                                        modifier = Modifier.size(26.dp)
-                                    )
-                                },
-                                /*text = {
-                                BaseText(text = item.title)
-                            },*/
-                                selectedContentColor = LightBlu500,
-                                unselectedContentColor = LightGray400
-                            )
+                                Tab(
+                                    modifier = Modifier
+                                        .height(56.dp),
+                                    selected = pagerState.currentPage == index,
+                                    onClick = {
+                                        coroutineScope.launch {
+                                            pagerState.scrollToPage(
+                                                index
+                                            )
+                                        }
+                                    },
+                                    icon = {
+                                        Icon(
+                                            imageVector = item.icon,
+                                            contentDescription = "",
+                                            modifier = Modifier.size(26.dp)
+                                        )
+                                    },
+                                    /*text = {
+                                    BaseText(text = item.title)
+                                },*/
+                                    selectedContentColor = LightGray700,
+                                    unselectedContentColor = LightGray400
+                                )
+                            }
                         }
                     }
                 }
@@ -129,13 +137,3 @@ fun HomeView() {
     }
 }
 
-sealed class TabRowItem(
-    val title: String,
-    val icon: ImageVector,
-    val screen: @Composable () -> Unit
-) {
-    object Analysis : TabRowItem("홈", Icons.Filled.Home, { AnalysisScreen() })
-    object Calendar : TabRowItem("달력", Icons.Filled.CalendarToday, { CalendarScreen() })
-    object Reorder : TabRowItem("목록", Icons.Filled.Reorder, { AnalysisScreen() })
-    object Settings : TabRowItem("설정", Icons.Filled.Settings, { CalendarScreen() })
-}
