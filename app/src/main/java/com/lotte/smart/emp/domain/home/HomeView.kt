@@ -107,7 +107,6 @@ fun HomeView(items: List<TabRowItem> = emptyList(), viewModel: HomeViewModel = h
                                             pagerState.scrollToPage(
                                                 index
                                             )
-
                                             BaseModel.setHomeIndex(index)
                                         }
                                     },
@@ -118,9 +117,6 @@ fun HomeView(items: List<TabRowItem> = emptyList(), viewModel: HomeViewModel = h
                                             modifier = Modifier.size(26.dp)
                                         )
                                     },
-                                    /*text = {
-                                    BaseText(text = item.title)
-                                },*/
                                     selectedContentColor = LightGray700,
                                     unselectedContentColor = LightGray400
                                 )

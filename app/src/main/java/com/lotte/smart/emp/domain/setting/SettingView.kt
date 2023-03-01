@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.theme.ClearRippleTheme
+import com.lotte.smart.emp.base.theme.noRippleClickable
 import com.lotte.smart.emp.base.widget.BaseAppBar
 import com.lotte.smart.emp.base.widget.BaseScaffold
 import com.lotte.smart.emp.base.widget.BaseText
@@ -148,7 +149,7 @@ fun BaseListBtn(title: String, imageVector: ImageVector, click: () -> Unit) {
             modifier = Modifier
                 .height(48.dp)
                 .fillMaxWidth()
-                .clickable { click() }
+                .noRippleClickable { click() }
         ) {
             Icon(
                 modifier = Modifier

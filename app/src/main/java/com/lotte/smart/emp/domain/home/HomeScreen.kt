@@ -5,12 +5,14 @@ import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Reorder
+import androidx.compose.material.icons.rounded.Chat
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.lotte.smart.emp.domain.analysis.AnalysisScreen
 import com.lotte.smart.emp.domain.calendar.CalendarScreen
+import com.lotte.smart.emp.domain.chat.ChatScreen
 import com.lotte.smart.emp.domain.personal.PersonalScreen
 
 
@@ -20,7 +22,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
     val items = listOf(
         TabRowItem.Analysis,
         TabRowItem.Calendar,
-        TabRowItem.Reorder,
+        TabRowItem.Chat(navController),
         TabRowItem.Personal(navController)
     )
 
@@ -35,7 +37,9 @@ sealed class TabRowItem(
 ) {
     object Analysis : TabRowItem("홈", Icons.Filled.Home, { AnalysisScreen() })
     object Calendar : TabRowItem("달력", Icons.Filled.CalendarToday, { CalendarScreen() })
-    object Reorder : TabRowItem("목록", Icons.Filled.Reorder, { AnalysisScreen() })
+
+    data class Chat(val navController: NavController) :
+        TabRowItem("채팅", Icons.Rounded.Chat, { ChatScreen(navController = navController) })
 
     data class Personal(val navController: NavController) :
         TabRowItem("개인", Icons.Filled.Person, { PersonalScreen(navController = navController) })

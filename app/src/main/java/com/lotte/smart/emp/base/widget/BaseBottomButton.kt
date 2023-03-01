@@ -22,13 +22,14 @@ fun showBaseBottomButton() {
 
 @Composable
 fun BaseBottomButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     text: String = "",
 ) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = LightBlu500),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(48.dp),
         elevation = ButtonDefaults.elevation(0.dp),
