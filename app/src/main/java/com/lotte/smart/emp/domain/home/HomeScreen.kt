@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Reorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.lotte.smart.emp.domain.analysis.AnalysisScreen
 import com.lotte.smart.emp.domain.calendar.CalendarScreen
@@ -14,8 +15,8 @@ import com.lotte.smart.emp.domain.personal.PersonalScreen
 
 
 @Composable
-fun HomeScreen(navController: NavController) {
-
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
+    
     val items = listOf(
         TabRowItem.Analysis,
         TabRowItem.Calendar,
@@ -24,7 +25,6 @@ fun HomeScreen(navController: NavController) {
     )
 
     HomeView(items)
-
 
 }
 

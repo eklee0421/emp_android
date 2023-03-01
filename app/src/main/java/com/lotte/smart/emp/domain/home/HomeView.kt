@@ -7,6 +7,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,10 +18,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.lotte.smart.emp.R
+import com.lotte.smart.emp.base.BaseModel
 import com.lotte.smart.emp.base.theme.ClearRippleTheme
 import com.lotte.smart.emp.base.widget.BaseScaffold
 import com.lotte.smart.emp.domain.register.RegisterScreen
@@ -36,10 +40,15 @@ fun ShowHomeView() {
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun HomeView(items: List<TabRowItem> = emptyList()) {
+fun HomeView(items: List<TabRowItem> = emptyList(), viewModel: HomeViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+
+    val initHomeIndex = viewModel.initHomeIndex.observeAsState()
+    LaunchedEffect(initHomeIndex.value) {
+        pagerState.scrollToPage(initHomeIndex.value ?: 0)
+    }
 
     RegisterScreen(modalSheetState = modalBottomSheetState) {
         BaseScaffold(
@@ -98,6 +107,8 @@ fun HomeView(items: List<TabRowItem> = emptyList()) {
                                             pagerState.scrollToPage(
                                                 index
                                             )
+
+                                            BaseModel.setHomeIndex(index)
                                         }
                                     },
                                     icon = {
@@ -125,6 +136,7 @@ fun HomeView(items: List<TabRowItem> = emptyList()) {
                     state = pagerState,
                 ) {
                     items[pagerState.currentPage].screen()
+                    BaseModel.setHomeIndex(pagerState.currentPage)
                 }
             }
         }
