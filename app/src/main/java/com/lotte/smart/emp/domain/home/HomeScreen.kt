@@ -1,15 +1,9 @@
 package com.lotte.smart.emp.domain.home
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Reorder
-import androidx.compose.material.icons.rounded.Chat
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.lotte.smart.emp.R
 import com.lotte.smart.emp.domain.analysis.AnalysisScreen
 import com.lotte.smart.emp.domain.calendar.CalendarScreen
 import com.lotte.smart.emp.domain.chat.ChatScreen
@@ -18,7 +12,7 @@ import com.lotte.smart.emp.domain.personal.PersonalScreen
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
-    
+
     val items = listOf(
         TabRowItem.Analysis,
         TabRowItem.Calendar,
@@ -32,15 +26,15 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 
 sealed class TabRowItem(
     val title: String,
-    val icon: ImageVector,
+    val icon: Int,
     val screen: @Composable () -> Unit,
 ) {
-    object Analysis : TabRowItem("홈", Icons.Filled.Home, { AnalysisScreen() })
-    object Calendar : TabRowItem("달력", Icons.Filled.CalendarToday, { CalendarScreen() })
+    object Analysis : TabRowItem("홈", R.drawable.ic_home, { AnalysisScreen() })
+    object Calendar : TabRowItem("달력", R.drawable.ic_calendar, { CalendarScreen() })
 
     data class Chat(val navController: NavController) :
-        TabRowItem("채팅", Icons.Rounded.Chat, { ChatScreen(navController = navController) })
+        TabRowItem("채팅", R.drawable.ic_chat, { ChatScreen(navController = navController) })
 
     data class Personal(val navController: NavController) :
-        TabRowItem("개인", Icons.Filled.Person, { PersonalScreen(navController = navController) })
+        TabRowItem("개인", R.drawable.ic_user, { PersonalScreen(navController = navController) })
 }

@@ -5,13 +5,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.lotte.smart.emp.R
 import com.lotte.smart.emp.base.widget.BaseAppBar
 import com.lotte.smart.emp.base.widget.BaseScaffold
 import com.lotte.smart.emp.ui.theme.LightGray200
@@ -22,7 +21,7 @@ fun PersonalView(viewModel: PersonalViewModel = hiltViewModel()) {
     BaseScaffold(
         backgroundColor = LightGray200,
         topBar = {
-            BaseAppBar(rightIconImage = Icons.Outlined.Settings, rightIconAction = {
+            BaseAppBar(rightIconImage = R.drawable.ic_setting, rightIconAction = {
                 viewModel.onChangeSetting()
             }, backgroundColor = LightGray200)
         }

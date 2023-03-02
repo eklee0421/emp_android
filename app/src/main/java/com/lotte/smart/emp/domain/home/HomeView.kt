@@ -112,7 +112,7 @@ fun HomeView(items: List<TabRowItem> = emptyList(), viewModel: HomeViewModel = h
                                     },
                                     icon = {
                                         Icon(
-                                            imageVector = item.icon,
+                                            painter = painterResource(id = item.icon),
                                             contentDescription = "",
                                             modifier = Modifier.size(26.dp)
                                         )

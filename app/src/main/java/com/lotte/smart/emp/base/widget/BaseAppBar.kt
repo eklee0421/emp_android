@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lotte.smart.emp.ui.theme.LightGray100
@@ -30,7 +31,7 @@ fun BaseAppBar(
     leftIconAction: (() -> Unit) = {},
     leftIconImage: ImageVector? = null,
     rightIconAction: (() -> Unit) = {},
-    rightIconImage: ImageVector? = null,
+    rightIconImage: Int? = null,
     backgroundColor: Color = LightGray100,
 ) {
     val modifier = Modifier
@@ -69,7 +70,8 @@ fun BaseAppBar(
                 if (rightIconImage != null) {
                     IconButton(onClick = rightIconAction) {
                         Icon(
-                            imageVector = rightIconImage,
+                            painter = painterResource(id = rightIconImage),
+                            modifier = Modifier.size(24.dp),
                             contentDescription = "",
                             tint = LightGray700
                         )
